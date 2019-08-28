@@ -105,7 +105,7 @@ function githubRelease(p, tag) {
     `github-release release \
       -t ${tag} \
       -n "${parts[1]} ${tag}" \
-      -d "$(git log --no-merges --pretty=format:'- %s %H (%aN)' HEAD ^$last_tag)" \
+      -d "$(git log --no-merges --pretty=format:'- %s %H (%aN)' HEAD ^$last_tag)" 2>&1 | sed -e "s/${GITHUB_TOKEN}//" \
       || echo "release ${tag} exists"`,
     `for bin in ./bin/*; do github-release upload -f $bin -n $(basename $bin) -t ${tag}; done`
   ];
