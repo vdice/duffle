@@ -134,7 +134,7 @@ func (up *upgradeCmd) run() error {
 	err = upgr.Run(&claim, creds, setOut(up.out), opRelocator)
 
 	// persist the claim, regardless of the success of the upgrade action
-	persistErr := claimStorage().Store(claim)
+	persistErr := claimStorage().Save(claim)
 
 	if err != nil {
 		return fmt.Errorf("could not upgrade %q: %s", up.name, err)

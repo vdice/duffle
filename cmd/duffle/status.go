@@ -48,7 +48,7 @@ reason, it may need the same credentials used to install.
 			table.MaxColWidth = 80
 			table.Wrap = true
 
-			table.AddRow("Installation Name:", c.Name)
+			table.AddRow("Installation Name:", c.Installation)
 			table.AddRow("Installed at:", c.Created)
 			table.AddRow("Last Modified at:", c.Modified)
 			table.AddRow("Current Revision:", c.Revision)

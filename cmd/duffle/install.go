@@ -161,7 +161,7 @@ func (i *installCmd) run() error {
 	// Even if the action fails, we want to store a claim. This is because
 	// we cannot know, based on a failure, whether or not any resources were
 	// created. So we want to suggest that the user take investigative action.
-	err2 := claimStorage().Store(*c)
+	err2 := claimStorage().Save(*c)
 	if err != nil {
 		return fmt.Errorf("Install step failed: %v", err)
 	}
@@ -283,5 +283,5 @@ func calculateParamValues(bun *bundle.Bundle, valuesFile string, setParams, setF
 		vals[parts[0]] = string(content)
 	}
 
-	return bundle.ValuesOrDefaults(vals, bun)
+	return bundle.ValuesOrDefaults(vals, bun, claim.ActionInstall)
 }

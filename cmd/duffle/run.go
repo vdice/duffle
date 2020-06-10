@@ -91,7 +91,7 @@ Credentials and parameters may be passed to the bundle during a target action.
 				return err
 			}
 
-			err2 := storage.Store(c)
+			err2 := storage.Save(c)
 			if err != nil {
 				return fmt.Errorf("run failed: %s", err)
 			}

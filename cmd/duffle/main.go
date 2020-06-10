@@ -16,6 +16,7 @@ import (
 	"github.com/cnabio/cnab-go/credentials"
 	"github.com/cnabio/cnab-go/driver"
 	"github.com/cnabio/cnab-go/driver/lookup"
+	"github.com/cnabio/cnab-go/secrets/host"
 	"github.com/cnabio/cnab-go/utils/crud"
 	"github.com/spf13/cobra"
 
@@ -65,6 +66,7 @@ func loadCredentials(files []string, b *bundle.Bundle) (map[string]string, error
 	}
 
 	credDir := home.Home(homePath()).Credentials() // Credentials directory should exist from duffle init
+	credStore := &host.SecretStore{}               // Instantiate the default host store for resolving credential values
 
 	// The strategy here is "last one wins". We loop through each credential file and
 	// calculate its credentials. Then we insert them into the creds map in the order
@@ -74,7 +76,7 @@ func loadCredentials(files []string, b *bundle.Bundle) (map[string]string, error
 		if err != nil {
 			return creds, err
 		}
-		res, err := cset.Resolve()
+		res, err := cset.ResolveCredentials(credStore)
 		if err != nil {
 			return res, err
 		}

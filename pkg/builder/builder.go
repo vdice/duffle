@@ -12,6 +12,7 @@ import (
 
 	"github.com/Masterminds/semver"
 	"github.com/cnabio/cnab-go/bundle"
+	"github.com/cnabio/cnab-go/schema"
 	"github.com/pkg/errors"
 
 	"github.com/cnabio/duffle/pkg/duffle/manifest"
@@ -80,7 +81,7 @@ func (b *Builder) PrepareBuild(bldr *Builder, mfst *manifest.Manifest, appDir st
 		Outputs:            ctx.Manifest.Outputs,
 		Parameters:         ctx.Manifest.Parameters,
 		RequiredExtensions: ctx.Manifest.RequiredExtensions,
-		SchemaVersion:      ctx.Manifest.SchemaVersion,
+		SchemaVersion:      schema.Version(ctx.Manifest.SchemaVersion),
 		Version:            ctx.Manifest.Version,
 	}
 

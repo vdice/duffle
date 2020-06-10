@@ -13,6 +13,7 @@ import (
 
 	"github.com/cnabio/cnab-go/bundle"
 	"github.com/cnabio/cnab-go/credentials"
+	"github.com/cnabio/cnab-go/secrets/host"
 	"github.com/spf13/cobra"
 	survey "gopkg.in/AlecAivazis/survey.v1"
 	yaml "gopkg.in/yaml.v2"
@@ -165,13 +166,17 @@ func genCredentialSurvey(name string) (credentials.CredentialStrategy, error) {
 	c.Source = credentials.Source{}
 	switch answers.Source {
 	case questionValue:
+		c.Source.Key = host.SourceValue
 		c.Source.Value = answers.Value
 	case questionEnvVar:
-		c.Source.EnvVar = answers.Value
+		c.Source.Key = host.SourceEnv
+		c.Source.Value = answers.Value
 	case questionPath:
-		c.Source.Path = answers.Value
+		c.Source.Key = host.SourcePath
+		c.Source.Value = answers.Value
 	case questionCommand:
-		c.Source.Command = answers.Value
+		c.Source.Key = host.SourceCommand
+		c.Source.Value = answers.Value
 	}
 	return c, nil
 }
